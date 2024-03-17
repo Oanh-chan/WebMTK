@@ -138,6 +138,8 @@
     <Compile Include="Areas\Admin\Controllers\AdminOrdersController.cs" />
     <Compile Include="Areas\Admin\Controllers\AdminProductsController.cs" />
     <Compile Include="Areas\Admin\Controllers\CustomersAdminController.cs" />
+    <Compile Include="Builder_Pattern\MenuBuilder.cs" />
+    <Compile Include="Builder_Pattern\MenuBuilderAdmin.cs" />
     <Compile Include="Controllers\BrandController.cs" />
     <Compile Include="Controllers\CartController.cs" />
     <Compile Include="Controllers\CategoryController.cs" />

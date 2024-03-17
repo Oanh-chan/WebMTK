@@ -109,15 +109,18 @@
 
                     @if (ViewBag.Status == 0)
                     {
-                        <a href='@Url.Action("CancelOrder/" + ViewBag.Id,"AdminOrders")' class="btn btn-success" style="float:right">Xác nhận đơn hàng</a>
-                      
-                        <a href='@Url.Action("Confirm/" + ViewBag.Id,"AdminOrders")' class="btn btn-danger" style="float:right">Hủy đơn hàng</a>
-                        }
+                        <div class="text-left">
+                            <a href='@Url.Action("Confirm/" + ViewBag.Id,"AdminOrders")' class="btn btn-success" style="float:right">Xác nhận đơn hàng</a>
+                        </div>
+                        <div class="text-right">
+                            <a href='@Url.Action("CancelOrder/" + ViewBag.Id,"AdminOrders")' class="btn btn-danger" style="float:right">Hủy đơn hàng</a>
+                        </div>
+                    }
 
                     @*@if (ViewBag.Status == 2)
-                    {
-                        <a href='@Url.Action("CancelOrder/" + ViewBag.Id,"AdminOrders")' class="btn btn-danger" style="float:right">Hủy đơn hàng</a>
-                    }*@
+        {
+            <a href='@Url.Action("CancelOrder/" + ViewBag.Id,"AdminOrders")' class="btn btn-danger" style="float:right">Hủy đơn hàng</a>
+        }*@
 
                 </div>
 

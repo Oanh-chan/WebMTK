@@ -1,4 +1,13 @@
-﻿<!DOCTYPE html>
+﻿@using BeautyStore.Builder_Pattern
+
+@{
+    var menuBuilder = new MenuBuilder();
+    var menuHtml = menuBuilder.AddMenuItem("Sản phẩm", Url.Action("GetAllProduct", "Category"), "nav-link active");
+    menuHtml += menuBuilder.AddMenuItem("Tin tức", Url.Action("Index", "News"), "nav-link");
+    menuHtml += menuBuilder.AddMenuItem("Giới thiệu", Url.Action("Introduction", "Home"), "nav-link");
+    // Thêm các mục menu khác tùy ý
+}
+<!DOCTYPE html>
 <html>
 
 <head>
@@ -108,7 +117,7 @@
                             <img src="~/Content/assets/img/logo.png" alt="">
                             <span class="d-none d-lg-block">HaLuStore</span>
                         </a>
-                        
+
                     </div>
                     <div class="navbar">
                         <a class=" text-right search-form d-flex align-items-center search-bar" ">
@@ -126,20 +135,20 @@
 
                             @*<li class="col-lg-3 search-input text-right">
 
-            @using (Html.BeginForm("Search", "Category", FormMethod.Post, new { @class = "form-inline" }))
-            {
-                <input class="form-control mr-sm-2" type="search" placeholder="Tìm kiếm" name="searchString" aria-label="Search">
-                <button class=" my-2 my-sm-0" type="submit"><i class="bi bi-search"></i></button>
-            }
+                                    @using (Html.BeginForm("Search", "Category", FormMethod.Post, new { @class = "form-inline" }))
+                                    {
+                                        <input class="form-control mr-sm-2" type="search" placeholder="Tìm kiếm" name="searchString" aria-label="Search">
+                                        <button class=" my-2 my-sm-0" type="submit"><i class="bi bi-search"></i></button>
+                                    }
 
-        </li>*@
+                                </li>*@
                             <li></li>
-                           
 
-                            <li><a class="nav-link active" aria-current="page" href="@Url.Action("GetAllProduct","Category")"><i class=""></i>Sản phẩm</a></li>
+                            @Html.Raw(menuHtml)
+                            @*<li><a class="nav-link active" aria-current="page" href="@Url.Action("GetAllProduct","Category")"><i class=""></i>Sản phẩm</a></li>
 
-                            <li><a class="nav-link" href="@Url.Action("Index","News")"><i class=""></i>Tin tức</a></li>
-                            <li> <a class="nav-link" href="@Url.Action("Introduction","Home")"><i class=""></i>Giới thiệu</a></li>
+                                <li><a class="nav-link" href="@Url.Action("Index","News")"><i class=""></i>Tin tức</a></li>
+                                <li> <a class="nav-link" href="@Url.Action("Introduction","Home")"><i class=""></i>Giới thiệu</a></li>*@
 
 
                             <li>
@@ -152,9 +161,9 @@
                                 {
                                     <div class="item cart-btn">
                                         @*<a href="@Url.Action("Login","Users")" class="user-">
-                        <i class="bi bi-cart3"></i>
+                                                <i class="bi bi-cart3"></i>
 
-                    </a>*@
+                                            </a>*@
 
                                     </div>
                                 }
@@ -181,9 +190,9 @@
                                 {
                                     <div class="nav-item dropdown pe-3">
                                         @*<a href="@Url.Action("Login","Users")" class="user-login" id="login">
-                        <i class="bi bi-person"></i>
+                                                <i class="bi bi-person"></i>
 
-                    </a>*@
+                                            </a>*@
                                         <a class="nav-link nav-profile d-flex align-items-center pe-0" href="@Url.Action("Login","Users")" data-bs-toggle="dropdown">
                                             <img src="~/Content/assets/img/profile-img.jpg" alt="Profile" class="user-avatar">
                                             <span class="d-none d-md-block  ps-2">Khách hàng</span>
@@ -284,13 +293,13 @@
     <!-- end header section -->
     <!-- slider section -->
 
-<main style="padding-top: 70px">
-    <div style="min-height:530px">
-        @RenderBody()
-    </div>
-    <!-- contact section -->
-</main>
-    <section class="contact_section " >
+    <main style="padding-top: 70px">
+        <div style="min-height:530px">
+            @RenderBody()
+        </div>
+        <!-- contact section -->
+    </main>
+    <section class="contact_section ">
         <div class="container px-0">
             <div class="heading_container ">
                 <h2 class="">
@@ -368,10 +377,10 @@
                             <div class="client_info">
                                 <div class="client_name">
                                     <h5>
-                                       Bioderma
+                                        Bioderma
                                     </h5>
                                     <h6>
-                                       Thương hiệu mỹ phẩm đến từ Pháp
+                                        Thương hiệu mỹ phẩm đến từ Pháp
                                     </h6>
                                 </div>
                                 <i class="fa fa-quote-left" aria-hidden="true"></i>
@@ -452,7 +461,7 @@
                             <form action="#">
                                 <input type="email" placeholder="21dh111358@st.huflit.edu.vn">
                                 <button>
-                                    Liên hệ qua email 
+                                    Liên hệ qua email
                                 </button>
                             </form>
                         </div>

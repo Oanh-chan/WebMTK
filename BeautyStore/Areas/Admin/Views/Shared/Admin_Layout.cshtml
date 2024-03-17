@@ -1,4 +1,17 @@
-﻿<!DOCTYPE html>
+﻿@using BeautyStore.Builder_Pattern
+@{
+    var menuBuilderAdmin = new MenuBuilderAdmin();
+    menuBuilderAdmin.AddMenuItem("Trang chủ", Url.Action("Index", "AdminHome"), "bi bi-grid", "Trang chủ");
+    menuBuilderAdmin.AddMenuItem("Quản Lý Tài Khoản", Url.Action("Index", "CustomersAdmin"), "bi bi-menu-button-wide", "Quản Lý Tài Khoản");
+    menuBuilderAdmin.AddMenuItem("Quản Lý Sản Phẩm", Url.Action("Index", "AdminProducts"), "bi bi-journal-text", "Quản Lý Sản Phẩm");
+    menuBuilderAdmin.AddMenuItem("Quản Lý Đơn Hàng", Url.Action("Index", "AdminOrders"), "bi bi-bar-chart", "Quản Lý Đơn Hàng");
+    menuBuilderAdmin.AddMenuItem("Phân Loại Sản Phẩm", Url.Action("Index", "AdminCategories"), "bi bi-card-list", "Phân Loại Sản Phẩm");
+    menuBuilderAdmin.AddMenuItem("Quản Lý Thương Hiệu", Url.Action("Index", "AdminBrands"), "bi bi-gem", "Quản Lý Thương Hiệu");
+    menuBuilderAdmin.AddCustomItem("<li class=\"nav-heading\">Khác</li>");
+    menuBuilderAdmin.AddMenuItem("Chuyển Sang User", "/Users/Logout", "bi bi-box-arrow-in-right", "Chuyển Sang User");
+    var menuHtml = menuBuilderAdmin.GetMenu();}
+
+<!DOCTYPE html>
 <html lang="en">
 
 <head>
@@ -158,85 +171,84 @@
     </header><!-- End Header -->
     <!-- ======= Sidebar ======= -->
     <aside id="sidebar" class="sidebar">
-
-        <ul class="sidebar-nav" id="sidebar-nav">
+        @Html.Raw(menuHtml)
+        <!--<ul class="sidebar-nav" id="sidebar-nav">
 
             <li class="nav-item">
                 <a class="nav-link collapsed" href="@Url.Action("Index","AdminHome")">
                     <i class="bi bi-grid"></i>
                     <span>Trang chủ</span>
                 </a>
-            </li><!-- End Dashboard Nav -->
+            </li>-->
+        <!-- End Dashboard Nav -->
+        <!--<li class="nav-item">
 
-            <li class="nav-item">
+            <a class="nav-link collapsed " href="@Url.Action("Index","CustomersAdmin")">
+                <i class="bi bi-menu-button-wide"></i><span>Quản Lý Tài Khoản</span><i class="bi bi-chevron-down ms-auto"></i>
+            </a>
 
-                <a class="nav-link collapsed " href="@Url.Action("Index","CustomersAdmin")">
-                    <i class="bi bi-menu-button-wide"></i><span>Quản Lý Tài Khoản</span><i class="bi bi-chevron-down ms-auto"></i>
-                </a>
+        </li>-->
+        <!-- End Components Nav -->
+        <!--<li class="nav-item">
+            <a class="nav-link collapsed" href="@Url.Action("Index","AdminNews")">
+                <i class="bi bi-layout-text-window-reverse"></i> <span>Quản Lý Tin Tức</span><i class="bi bi-chevron-down ms-auto"></i>
+            </a>
 
-            </li><!-- End Components Nav -->
+        </li>-->
+        <!-- End Forms Nav -->
+        <!--<li class="nav-item">
+            <a class="nav-link collapsed" href="@Url.Action("Index","AdminProducts")">
+                <i class="bi bi-journal-text"></i><span>Quản Lý Sản Phẩm</span><i class="bi bi-chevron-down ms-auto"></i>
+            </a>
 
-            <!--<li class="nav-item">
-                <a class="nav-link collapsed" href="@Url.Action("Index","AdminNews")">
-                    <i class="bi bi-layout-text-window-reverse"></i> <span>Quản Lý Tin Tức</span><i class="bi bi-chevron-down ms-auto"></i>
-                </a>
+        </li>-->
+        <!-- End Tables Nav -->
+        <!--<li class="nav-item">
+            <a class="nav-link collapsed" href="@Url.Action("Index","AdminOrders")">
+                <i class="bi bi-bar-chart"></i><span>Quản Lý Đơn Hàng</span><i class="bi bi-chevron-down ms-auto"></i>
+            </a>
 
-            </li>--><!-- End Forms Nav -->
+        </li>-->
+        <!-- End Charts Nav -->
+        <!--<li class="nav-item">
+            <a class="nav-link collapsed" href="@Url.Action("Index","AdminCategories")">
+                <i class="bi bi-card-list"></i>
+                </i><span>Phân Loại Sản Phẩm</span><i class="bi bi-chevron-down ms-auto"></i>
+            </a>
 
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="@Url.Action("Index","AdminProducts")">
-                    <i class="bi bi-journal-text"></i><span>Quản Lý Sản Phẩm</span><i class="bi bi-chevron-down ms-auto"></i>
-                </a>
+        </li>-->
+        <!-- End Icons Nav -->
+        <!--<li class="nav-item">
+            <a class="nav-link collapsed" href="@Url.Action("Index","AdminBrands")">
+                <i class="bi bi-gem"></i><span>Quản Lý Thương Hiệu</span><i class="bi bi-chevron-down ms-auto"></i>
+            </a>
 
-            </li><!-- End Tables Nav -->
+        </li>-->
+        <!-- End Icons Nav -->
+        <!--<li class="nav-heading">Khác</li>
+        <li class="nav-item">
+            <a class="nav-link collapsed" href="users-profile.html">
+                <i class="bi bi-question-circle"></i>
+                <span>Phân Quyền</span>
+            </a>
+        </li>-->
+        <!-- End Profile Page Nav -->
+        <!--<li class="nav-item">
+            <a class="nav-link collapsed" href="pages-faq.html">
+                <i class="bi bi-person"></i>
 
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="@Url.Action("Index","AdminOrders")">
-                    <i class="bi bi-bar-chart"></i><span>Quản Lý Đơn Hàng</span><i class="bi bi-chevron-down ms-auto"></i>
-                </a>
-
-            </li><!-- End Charts Nav -->
-
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="@Url.Action("Index","AdminCategories")">
-                    <i class="bi bi-card-list"></i>
-                    </i><span>Phân Loại Sản Phẩm</span><i class="bi bi-chevron-down ms-auto"></i>
-                </a>
-
-            </li><!-- End Icons Nav -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="@Url.Action("Index","AdminBrands")">
-                    <i class="bi bi-gem"></i><span>Quản Lý Thương Hiệu</span><i class="bi bi-chevron-down ms-auto"></i>
-                </a>
-
-            </li><!-- End Icons Nav -->
-
-            <li class="nav-heading">Khác</li>
-
-            <!--<li class="nav-item">
-                <a class="nav-link collapsed" href="users-profile.html">
-                    <i class="bi bi-question-circle"></i>
-                    <span>Phân Quyền</span>
-                </a>
-            </li>--><!-- End Profile Page Nav -->
-
-            <!--<li class="nav-item">
-                <a class="nav-link collapsed" href="pages-faq.html">
-                    <i class="bi bi-person"></i>
-
-                    <span>Tài Khoản Admin</span>
-                </a>
-            </li>--><!-- End F.A.Q Page Nav -->
-
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="/Users/Logout">
-                    <i class="bi bi-box-arrow-in-right"></i>
-                    <span>Chuyển Sang User</span>
-                </a>
-            </li><!-- End Contact Page Nav -->
-
-
-        </ul>
+                <span>Tài Khoản Admin</span>
+            </a>
+        </li>-->
+        <!-- End F.A.Q Page Nav -->
+        <!--<li class="nav-item">
+            <a class="nav-link collapsed" href="/Users/Logout">
+                <i class="bi bi-box-arrow-in-right"></i>
+                <span>Chuyển Sang User</span>
+            </a>
+        </li>-->
+        <!-- End Contact Page Nav -->
+        <!--</ul>-->
 
     </aside><!-- End Sidebar-->
     <div class="main-admin">
