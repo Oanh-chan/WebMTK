@@ -9,38 +9,41 @@ namespace BeautyStore.Controllers
 {
     public class FavoriteProductController : Controller
     {
-        BeautyStoreEntities1 db = new BeautyStoreEntities1();
+        private readonly BeautyStoreEntities1 _db;
+        private readonly IFavoriteAdapter _favoriteProductAdapter;
+
+        public FavoriteProductController()
+        {
+            _db = new BeautyStoreEntities1();
+            _favoriteProductAdapter = new FavoriteProductAdapter();
+        }
+
         // GET: FavoriteProduct
         public ActionResult FavoriteList(int id)
         {
-            var product = db.FavoriteProducts.Where(n => n.UserID == id).ToList();
+            var product = _db.FavoriteProducts.Where(n => n.UserID == id).ToList();
 
             ViewBag.ProductInfor = new List<Product>();
             foreach (var item in product)
             {
-                Product prod = db.Products.FirstOrDefault(p => p.ProductID == item.ProductID);
+                Product prod = _db.Products.FirstOrDefault(p => p.ProductID == item.ProductID);
                 ViewBag.ProductInfor.Add(prod);
             }
 
             return View(product);
         }
 
-
-
         [HttpPost]
         public ActionResult InsertListFavorite(FavoriteProduct favoriteProd)
         {
             if (ModelState.IsValid)
             {
-                var productAvail = db.FavoriteProducts.FirstOrDefault(p => p.ProductID == favoriteProd.ProductID && p.UserID == favoriteProd.UserID);
+                var productAvail = _db.FavoriteProducts.FirstOrDefault(p => p.ProductID == favoriteProd.ProductID && p.UserID == favoriteProd.UserID);
                 if (productAvail != null)
                     return RedirectToAction("Index/" + favoriteProd.ProductID, "Details");
                 else
                 {
-
-                    db.FavoriteProducts.Add(favoriteProd);
-                    db.SaveChanges();
-
+                    _favoriteProductAdapter.InsertFavoriteProduct(favoriteProd);
                     return RedirectToAction("FavoriteList/" + favoriteProd.UserID, "FavoriteProduct");
                 }
             }
@@ -51,9 +54,7 @@ namespace BeautyStore.Controllers
         {
             if (ModelState.IsValid)
             {
-                var prod = db.FavoriteProducts.FirstOrDefault(p => p.ProductID == favoriteProd.ProductID && p.UserID == favoriteProd.UserID);
-                db.FavoriteProducts.Remove(prod);
-                db.SaveChanges();
+                _favoriteProductAdapter.DeleteFavoriteProduct(favoriteProd);
             }
             return RedirectToAction("FavoriteList/" + favoriteProd.UserID, "FavoriteProduct");
         }
