@@ -1,4 +1,5 @@
-﻿@model IEnumerable<BeautyStore.Models.Product>
+﻿@using BeautyStore.Models;
+@model IEnumerable<BeautyStore.Models.Product>
 
 @{
     var formatMoney = System.Globalization.CultureInfo.GetCultureInfo("vi-VN");
@@ -95,13 +96,19 @@
                                     </div><br />
                                     <h6 class="initial-price">@String.Format(formatMoney, "{0:c0}", item.IntialPrice)</h6>
                                     <h5>@String.Format(formatMoney, "{0:c0}", item.Price)</h5>
-                                    @if (item.amount < 1)
-                                    {
-                                        <div class="sold-out-label">
-                                            <img src="~/Image/download.png" alt="">
-                                            <p>Hết hàng</p>
-                                        </div>
+                                    @*@if (item.amount < 1)
+                                        {
+                                            <div class="sold-out-label">
+                                                <img src="~/Image/download.png" alt="">
+                                                <p>Hết hàng</p>
+                                            </div>
+                                        }*@
+
+                                    @{
+                                        var soldOutDecorator = new SoldOutDecorator(Html);
                                     }
+
+                                    @Html.Raw(soldOutDecorator.Decorate(item))
 
                                     <span class="rating">
                                         <i class="ri-star-fill"></i>
