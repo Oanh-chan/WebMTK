@@ -7,18 +7,19 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using BeautyStore.Facade;
 using BeautyStore.Models;
 
 namespace BeautyStore.Areas.Admin.Controllers
 {
     public class AdminBrandsController : Controller
     {
-        private BeautyStoreEntities1 db = new BeautyStoreEntities1();
+        private BrandFacade _brandFacade = new BrandFacade();
 
         // GET: Admin/AdminBrands
         public ActionResult Index()
         {
-            return View(db.Brands.ToList());
+            return View(_brandFacade.GetAllBrands());
         }
 
         // GET: Admin/AdminBrands/Details/5
@@ -28,7 +29,7 @@ namespace BeautyStore.Areas.Admin.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Brand brand = db.Brands.Find(id);
+            Brand brand = _brandFacade.GetBrand(id.Value);
             if (brand == null)
             {
                 return HttpNotFound();
@@ -43,26 +44,15 @@ namespace BeautyStore.Areas.Admin.Controllers
         }
 
         // POST: Admin/AdminBrands/Create
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Create([Bind(Include = "BrandID,BrandName,BrandImage")] Brand brand, HttpPostedFileBase ImgBrand)
         {
             if (ModelState.IsValid)
             {
-                if (ImgBrand != null)
-                {
-                    var fileName = Path.GetFileName(ImgBrand.FileName);
-                    var path = Path.Combine(Server.MapPath("~/image"), fileName);
-                    brand.BrandImage = fileName;
-                    ImgBrand.SaveAs(path);
-                }
-                db.Brands.Add(brand);
-                db.SaveChanges();
+                _brandFacade.CreateBrand(brand, ImgBrand);
                 return RedirectToAction("Index");
             }
-
             return View(brand);
         }
 
@@ -73,7 +63,7 @@ namespace BeautyStore.Areas.Admin.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Brand brand = db.Brands.Find(id);
+            Brand brand = _brandFacade.GetBrand(id.Value);
             if (brand == null)
             {
                 return HttpNotFound();
@@ -82,23 +72,13 @@ namespace BeautyStore.Areas.Admin.Controllers
         }
 
         // POST: Admin/AdminBrands/Edit/5
-        // To protect from overposting attacks, enable the specific properties you want to bind to, for 
-        // more details see https://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
         public ActionResult Edit([Bind(Include = "BrandID,BrandName,BrandImage")] Brand brand, HttpPostedFileBase ImgBrand)
         {
             if (ModelState.IsValid)
             {
-                if (ImgBrand != null)
-                {
-                    var fileName = Path.GetFileName(ImgBrand.FileName);
-                    var path = Path.Combine(Server.MapPath("~/image"), fileName);
-                    brand.BrandImage = fileName;
-                    ImgBrand.SaveAs(path);
-                }
-                db.Entry(brand).State = EntityState.Modified;
-                db.SaveChanges();
+                _brandFacade.EditBrand(brand, ImgBrand);
                 return RedirectToAction("Index");
             }
             return View(brand);
@@ -111,7 +91,7 @@ namespace BeautyStore.Areas.Admin.Controllers
             {
                 return new HttpStatusCodeResult(HttpStatusCode.BadRequest);
             }
-            Brand brand = db.Brands.Find(id);
+            Brand brand = _brandFacade.GetBrand(id.Value);
             if (brand == null)
             {
                 return HttpNotFound();
@@ -124,19 +104,8 @@ namespace BeautyStore.Areas.Admin.Controllers
         [ValidateAntiForgeryToken]
         public ActionResult DeleteConfirmed(int id)
         {
-            Brand brand = db.Brands.Find(id);
-            db.Brands.Remove(brand);
-            db.SaveChanges();
+            _brandFacade.DeleteBrand(id);
             return RedirectToAction("Index");
-        }
-
-        protected override void Dispose(bool disposing)
-        {
-            if (disposing)
-            {
-                db.Dispose();
-            }
-            base.Dispose(disposing);
         }
     }
 }
