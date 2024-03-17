@@ -151,6 +151,7 @@
     <Compile Include="Controllers\NewsController.cs" />
     <Compile Include="Controllers\OrderController.cs" />
     <Compile Include="Controllers\UsersController.cs" />
+    <Compile Include="Factory\ProductFactory.cs" />
     <Compile Include="FlyweightFactory\BrandFlyweight.cs" />
     <Compile Include="FlyweightFactory\BrandFlyweightFactory.cs" />
     <Compile Include="Global.asax.cs">

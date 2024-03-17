@@ -4,6 +4,7 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using BeautyStore.Models;
+using BeautyStore.Factory;
 
 namespace BeautyStore.Controllers
 {
@@ -19,17 +20,25 @@ namespace BeautyStore.Controllers
         }
 
         // GET: FavoriteProduct
-        public ActionResult FavoriteList(int id)
+        public ActionResult FavoriteList(int? id)
         {
-            var product = _db.FavoriteProducts.Where(n => n.UserID == id).ToList();
-
-            ViewBag.ProductInfor = new List<Product>();
-            foreach (var item in product)
+            if (id == null)
             {
-                Product prod = _db.Products.FirstOrDefault(p => p.ProductID == item.ProductID);
-                ViewBag.ProductInfor.Add(prod);
+                // Xử lý khi id là null
+                return RedirectToAction("Error", "Home");
             }
 
+            var product = _db.FavoriteProducts.Where(n => n.UserID == id).ToList();
+
+            List<Product> productList = new List<Product>();
+
+            foreach (var item in product)
+            {
+                Product prod = ProductFactory.CreateProduct((int)item.ProductID);
+                productList.Add(prod);
+
+            }
+            ViewBag.ProductInfor = productList;
             return View(product);
         }
 
