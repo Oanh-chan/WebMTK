@@ -11,8 +11,8 @@ namespace BeautyStore.Models
 {
     using System;
     using System.Collections.Generic;
-    
-    public partial class Product
+
+    public partial class Product : IPrototype<Product>
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Product()
@@ -22,7 +22,15 @@ namespace BeautyStore.Models
             this.OrderDetails = new HashSet<OrderDetail>();
             this.StepsToUses = new HashSet<StepsToUse>();
         }
-    
+        public Product Clone()
+        {
+            return new Product
+            {
+                ProductID = this.ProductID,
+                ProductName = this.ProductName
+                // Clone other properties as needed
+            };
+        }
         public int ProductID { get; set; }
         public string ProductName { get; set; }
         public string Technology { get; set; }
@@ -42,7 +50,7 @@ namespace BeautyStore.Models
         public string FullIngredients { get; set; }
         public int amount { get; set; }
         public int CategoryID { get; set; }
-    
+
         public virtual Brand Brand { get; set; }
         public virtual Category Category { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
@@ -54,4 +62,5 @@ namespace BeautyStore.Models
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<StepsToUse> StepsToUses { get; set; }
     }
+
 }

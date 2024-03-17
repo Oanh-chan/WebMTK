@@ -9,22 +9,33 @@
 
 namespace BeautyStore.Models
 {
+   
     using System;
     using System.Collections.Generic;
-    
-    public partial class Category
+
+
+    public partial class Category : IPrototype<Category>
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public Category()
         {
             this.Products = new HashSet<Product>();
         }
-    
+        public Category Clone()
+        {
+            return new Category
+            {
+                CategoryID = this.CategoryID,
+                CategoryName = this.CategoryName
+                // Clone other properties as needed
+            };
+        }
         public int CategoryID { get; set; }
         public string CategoryName { get; set; }
         public string CategoryImage { get; set; }
-    
+
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Product> Products { get; set; }
     }
+
 }

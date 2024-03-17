@@ -179,6 +179,7 @@
     </Compile>
     <Compile Include="Models\FavoriteProductAdapter.cs" />
     <Compile Include="Models\IFavoriteAdapter.cs" />
+    <Compile Include="Models\IPrototype.cs" />
     <Compile Include="Models\Model1.Context.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
