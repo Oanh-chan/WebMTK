@@ -4,15 +4,24 @@ using System.Linq;
 using System.Web;
 using System.Web.Mvc;
 using BeautyStore.Models;
+using BeautyStore.FlyweightFactory;
 
 namespace BeautyStore.Controllers
 {
     public class HomeController : Controller
     {
         BeautyStoreEntities1 db = new BeautyStoreEntities1();
+        private BrandFlyweightFactory brandFactory = new BrandFlyweightFactory();
         public ActionResult Index()
         {
-            ViewBag.BrandsList = db.Brands.ToList().Take(8);
+            var brandsList = db.Brands.Take(8).ToList();
+            foreach (var brand in brandsList)
+            {
+                BrandFlyweight brandFlyweight = brandFactory.GetBrandFlyweight(brand.BrandID, brand.BrandImage);
+                brandFlyweight.Display();
+            }
+            ViewBag.BrandsList = brandsList;
+
 
             ViewBag.CategoriesList = db.Categories.ToList().Take(8);
             ViewBag.ProductsList = (from item in db.Products orderby item.ProductID descending select item).ToList().Take(10);
