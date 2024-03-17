@@ -1,5 +1,6 @@
-﻿@using BeautyStore.Builder_Pattern
-
+﻿
+@using BeautyStore.Builder_Pattern
+@using BeautyStore.Strategy
 @{
     var menuBuilder = new MenuBuilder();
     var menuHtml = menuBuilder.AddMenuItem("Sản phẩm", Url.Action("GetAllProduct", "Category"), "nav-link active");
@@ -104,6 +105,9 @@
     <link rel="stylesheet" type="text/css" href="~/Content3/styles/categories_styles.css">
     <link rel="stylesheet" type="text/css" href="~/Content3/styles/categories_responsive.css">
     <link href="~/Content/assets/css/style.css" rel="stylesheet">
+    @*thay đổi màu nền*@
+    <link id="theme" href="@LayoutHelper.GetThemeStyleSheet()" rel="stylesheet" />
+    <link href="~/Content/css/button_daynight.css" rel="stylesheet" />
 
 </head>
 
@@ -135,20 +139,29 @@
 
                             @*<li class="col-lg-3 search-input text-right">
 
-                                    @using (Html.BeginForm("Search", "Category", FormMethod.Post, new { @class = "form-inline" }))
-                                    {
-                                        <input class="form-control mr-sm-2" type="search" placeholder="Tìm kiếm" name="searchString" aria-label="Search">
-                                        <button class=" my-2 my-sm-0" type="submit"><i class="bi bi-search"></i></button>
-                                    }
+            @using (Html.BeginForm("Search", "Category", FormMethod.Post, new { @class = "form-inline" }))
+            {
+                <input class="form-control mr-sm-2" type="search" placeholder="Tìm kiếm" name="searchString" aria-label="Search">
+                <button class=" my-2 my-sm-0" type="submit"><i class="bi bi-search"></i></button>
+            }
 
-                                </li>*@
+        </li>*@
                             <li></li>
+
+                            <li>
+                                <label class="switch-custom" id="theme-toggle-button" onclick="toggleTheme()">
+                                    <span class="sun-custom"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24"><g fill="#ffd43b"><circle r="5" cy="12" cx="12"></circle><path d="m21 13h-1a1 1 0 0 1 0-2h1a1 1 0 0 1 0 2zm-17 0h-1a1 1 0 0 1 0-2h1a1 1 0 0 1 0 2zm13.66-5.66a1 1 0 0 1 -.66-.29 1 1 0 0 1 0-1.41l.71-.71a1 1 0 1 1 1.41 1.41l-.71.71a1 1 0 0 1 -.75.29zm-12.02 12.02a1 1 0 0 1 -.71-.29 1 1 0 0 1 0-1.41l.71-.66a1 1 0 0 1 1.41 1.41l-.71.71a1 1 0 0 1 -.7.24zm6.36-14.36a1 1 0 0 1 -1-1v-1a1 1 0 0 1 2 0v1a1 1 0 0 1 -1 1zm0 17a1 1 0 0 1 -1-1v-1a1 1 0 0 1 2 0v1a1 1 0 0 1 -1 1zm-5.66-14.66a1 1 0 0 1 -.7-.29l-.71-.71a1 1 0 0 1 1.41-1.41l.71.71a1 1 0 0 1 0 1.41 1 1 0 0 1 -.71.29zm12.02 12.02a1 1 0 0 1 -.7-.29l-.66-.71a1 1 0 0 1 1.36-1.36l.71.71a1 1 0 0 1 0 1.41 1 1 0 0 1 -.71.24z"></path></g></svg></span>
+                                    <span class="moon-custom"><svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 384 512"><path d="m223.5 32c-123.5 0-223.5 100.3-223.5 224s100 224 223.5 224c60.6 0 115.5-24.2 155.8-63.4 5-4.9 6.3-12.5 3.1-18.7s-10.1-9.7-17-8.5c-9.8 1.7-19.8 2.6-30.1 2.6-96.9 0-175.5-78.8-175.5-176 0-65.8 36-123.1 89.3-153.3 6.1-3.5 9.2-10.5 7.7-17.3s-7.3-11.9-14.3-12.5c-6.3-.5-12.6-.8-19-.8z"></path></svg></span>
+                                    <input type="checkbox" class="input" onclick="toggleTheme()">
+                                    <span class="slider-custom"></span>
+                                </label>
+                            </li>
 
                             @Html.Raw(menuHtml)
                             @*<li><a class="nav-link active" aria-current="page" href="@Url.Action("GetAllProduct","Category")"><i class=""></i>Sản phẩm</a></li>
 
-                                <li><a class="nav-link" href="@Url.Action("Index","News")"><i class=""></i>Tin tức</a></li>
-                                <li> <a class="nav-link" href="@Url.Action("Introduction","Home")"><i class=""></i>Giới thiệu</a></li>*@
+        <li><a class="nav-link" href="@Url.Action("Index","News")"><i class=""></i>Tin tức</a></li>
+        <li> <a class="nav-link" href="@Url.Action("Introduction","Home")"><i class=""></i>Giới thiệu</a></li>*@
 
 
                             <li>
@@ -161,9 +174,9 @@
                                 {
                                     <div class="item cart-btn">
                                         @*<a href="@Url.Action("Login","Users")" class="user-">
-                                                <i class="bi bi-cart3"></i>
+                        <i class="bi bi-cart3"></i>
 
-                                            </a>*@
+                    </a>*@
 
                                     </div>
                                 }
@@ -190,9 +203,9 @@
                                 {
                                     <div class="nav-item dropdown pe-3">
                                         @*<a href="@Url.Action("Login","Users")" class="user-login" id="login">
-                                                <i class="bi bi-person"></i>
+                        <i class="bi bi-person"></i>
 
-                                            </a>*@
+                    </a>*@
                                         <a class="nav-link nav-profile d-flex align-items-center pe-0" href="@Url.Action("Login","Users")" data-bs-toggle="dropdown">
                                             <img src="~/Content/assets/img/profile-img.jpg" alt="Profile" class="user-avatar">
                                             <span class="d-none d-md-block  ps-2">Khách hàng</span>
@@ -526,6 +539,19 @@
     <script src="~/Scripts/jquery.custom.js"></script>
 
     <script src="~/Scripts/main.js"></script>
+    <script>
+        // JavaScript code for theme switching
+        function toggleTheme() {
+            var themeLink = document.getElementById('theme');
+            var currentTheme = themeLink.getAttribute('href');
+            var newTheme = currentTheme.includes('light') ? 'dark' : 'light';
+            themeLink.setAttribute('href', '/Content/css/' + newTheme + '-theme.css');
+
+            // Lưu chế độ màu nền đã chọn vào cookie
+            document.cookie = "theme=" + newTheme + "; path=/";
+        }
+
+    </script>
 
 </body>
 
