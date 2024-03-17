@@ -1,4 +1,5 @@
-﻿@{
+﻿@using BeautyStore.Models;
+@{
     var formatMoney = System.Globalization.CultureInfo.GetCultureInfo("vi-VN");
 }
 
@@ -29,7 +30,7 @@
                                 <div class="col-md-9">
                                     <div class="detail-box">
                                         <h1>
-                                           Chào mừng bạn đến với <br>
+                                            Chào mừng bạn đến với <br>
                                             HaLuStore
                                         </h1>
                                         <p>
@@ -55,7 +56,7 @@
                                             HaLuStore
                                         </h1>
                                         <p>
-                                            HaLuStore - Nơi gặp gỡ, chia sẻ và phát triển cùng cộng đồng làm đẹp. Chúng tôi không chỉ cung cấp các sản phẩm hàng đầu mà còn tạo 
+                                            HaLuStore - Nơi gặp gỡ, chia sẻ và phát triển cùng cộng đồng làm đẹp. Chúng tôi không chỉ cung cấp các sản phẩm hàng đầu mà còn tạo
                                             cơ hội để bạn kết nối với những người đam mê làm đẹp và chia sẻ những bí quyết làm đẹp cá nhân của mình.
                                         </p>
                                         <a href="@Url.Action("GetAllProduct","Category")">
@@ -125,13 +126,20 @@
                                     </div><br />
                                     <h6 class="initial-price">@String.Format(formatMoney, "{0:c0}", item.IntialPrice)</h6>
                                     <h5>@String.Format(formatMoney, "{0:c0}", item.Price)</h5>
-                                    @if (item.amount < 1)
-                                    {
-                                        <div class="sold-out-label">
-                                            <img src="~/Image/download.png" alt="">
-                                            <p>Hết hàng</p>
-                                        </div>
+                                    @*@if (item.amount < 1)
+        {
+            <div class="sold-out-label">
+                <img src="~/Image/download.png" alt="">
+                <p>Hết hàng</p>
+            </div>
+        }
+                                    *@
+                                    @{
+                                        var soldOutDecorator = new SoldOutDecorator(Html);
                                     }
+
+                                    @Html.Raw(soldOutDecorator.Decorate(item))
+
                                     <span class="rating">
                                         <i class="bi bi-star-fill"></i>
                                         <i class="bi bi-star-fill"></i>
@@ -173,13 +181,20 @@
                                     </div><br />
                                     <h6 class="initial-price">@String.Format(formatMoney, "{0:c0}", item.IntialPrice)</h6>
                                     <h5>@String.Format(formatMoney, "{0:c0}", item.Price)</h5>
-                                    @if (item.amount < 1)
-                                    {
-                                        <div class="sold-out-label">
-                                            <img src="~/Image/download.png" alt="">
-                                            <p>Hết hàng</p>
-                                        </div>
+                                    @*@if (item.amount < 1)
+        {
+            <div class="sold-out-label">
+                <img src="~/Image/download.png" alt="">
+                <p>Hết hàng</p>
+            </div>
+        }*@
+
+                                    @{
+                                        var soldOutDecorator = new SoldOutDecorator(Html);
                                     }
+
+                                    @Html.Raw(soldOutDecorator.Decorate(item))
+
                                     <span class="rating">
                                         <i class="bi bi-star-fill"></i>
                                         <i class="bi bi-star-fill"></i>
@@ -221,13 +236,19 @@
                                     </div><br />
                                     <h6 class="initial-price">@String.Format(formatMoney, "{0:c0}", item.IntialPrice)</h6>
                                     <h5>@String.Format(formatMoney, "{0:c0}", item.Price)</h5>
-                                    @if (item.amount < 1)
-                                    {
-                                        <div class="sold-out-label">
-                                            <img src="~/Image/download.png" alt="">
-                                            <p>Hết hàng</p>
-                                        </div>
+                                    @*@if (item.amount < 1)
+        {
+            <div class="sold-out-label">
+                <img src="~/Image/download.png" alt="">
+                <p>Hết hàng</p>
+            </div>
+        }*@
+                                    @{
+                                        var soldOutDecorator = new SoldOutDecorator(Html);
                                     }
+
+                                    @Html.Raw(soldOutDecorator.Decorate(item))
+
                                     <span class="rating">
                                         <i class="bi bi-star-fill"></i>
                                         <i class="bi bi-star-fill"></i>

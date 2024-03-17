@@ -200,6 +200,7 @@
     <Compile Include="Models\Product.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
+    <Compile Include="Models\SoldOutDecorator.cs" />
     <Compile Include="Models\StepsToUse.cs">
       <DependentUpon>Model1.tt</DependentUpon>
     </Compile>
