@@ -7,6 +7,7 @@ using System.Net;
 using System.Web;
 using System.Web.Mvc;
 using BeautyStore.Models;
+using BeautyStore.State;
 
 namespace BeautyStore.Areas.Admin.Controllers
 {
@@ -15,6 +16,15 @@ namespace BeautyStore.Areas.Admin.Controllers
         private BeautyStoreEntities1 db = new BeautyStoreEntities1();
 
         // GET: Admin/AdminOrders
+        // GET: Admin/AdminOrders
+
+        private IOrderState orderState;
+
+        public AdminOrdersController()
+        {
+            db = new BeautyStoreEntities1();
+            orderState = new OrderState(db);
+        }
         public ActionResult Index()
         {
             var orders = (from order in db.Orders orderby order.IdOrder descending select order).ToList();
@@ -43,28 +53,18 @@ namespace BeautyStore.Areas.Admin.Controllers
 
         public ActionResult Confirm(int id)
         {
-            var prodListOrder = db.OrderDetails.Where(o => o.IdOrder == id).ToList();
-            foreach (var item in prodListOrder)
-            {
-                var product = db.Products.FirstOrDefault(p => p.ProductID == item.ProductID);
-                product.amount -= (int)item.Quantity;
-                db.SaveChanges();
-            }
-            var order = db.Orders.FirstOrDefault(o => o.IdOrder == id);
-            order.StatusOrder = 3;
-            db.SaveChanges();
+            orderState.ProcessOrder(id);
             return RedirectToAction("Index");
         }
+
+
 
         public ActionResult CancelOrder(int id)
         {
-            var order = db.Orders.FirstOrDefault(o => o.IdOrder == id);
-            order.StatusOrder = 2;
-            db.SaveChanges();
 
-            int idUser = order.UserID.GetValueOrDefault();
+            orderState.CancelOrder(id);
             return RedirectToAction("Index");
         }
-
     }
+
 }
